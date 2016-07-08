@@ -11,12 +11,21 @@ end
 
 # Display components
 class UserView
+  def self.display_format(format_list)
+    format_list.each_with_index { |val, index| puts "#{index + 1})  #{val}" }
+  end
+
   def self.read_in_data
     ['Name', 'City', 'Age', 'File name'].each do |content|
       print "#{content} : "
       STDOUT.flush
       yield
     end
+  end
+
+  def self.load_choice
+    print 'Enter choice : '
+    gets.chomp.to_i
   end
 end
 
@@ -34,20 +43,47 @@ class Controller
   end
 
   def write_format
-    # will need plugin based write
-    open(@file_name, 'w') do |file|
-      file.puts "#{@data_object.user_name}, #{@data_object.user_age},"\
-       " #{@data_object.user_city}"
-    end
+    class_name = @call_list[@choice - 1]
+    class_object = Object.const_get(class_name)
+    class_object.write_format(@data_object, @file_name)
   end
 
   def start
+    @call_list = PluginLoader.new.find_plugins
+    @choice = UserView.load_choice
     call_read
     write_format
   end
 end
 
-# main for now
+# processing Plugins
+class PluginLoader
+  def initialize
+    @format_list = []
+    @class_list = []
+  end
 
+  def find_plugins
+    Dir.chdir('plugins')
+    Dir.glob('*.rb') do |file|
+      @format_list << file
+      require_relative "plugins/#{file}"
+    end
+    formatconversion
+    Dir.chdir('..')
+    @class_list
+  end
+
+  def formatconversion
+    @format_list.each do |name|
+      sample = name[0].upcase + name[1..-4]
+      sample[sample.index('_') + 1] = sample[sample.index('_') + 1].upcase
+      @class_list << sample.sub('_', '')
+      UserView.display_format(@class_list)
+    end
+  end
+end
+
+# main for now
 program = Controller.new
 program.start
