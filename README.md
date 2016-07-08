@@ -10,7 +10,7 @@ A ruby program that takes in user data and outputs files based format chosen by 
 
 - ruby 2.x
 
-# DEPENDANCIES
+# DEPENDENCIES
 
 - prawns (ruby gem)
 ```
