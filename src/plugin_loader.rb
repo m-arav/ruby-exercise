@@ -9,7 +9,7 @@ class PluginLoader
     Dir.chdir('plugins')
     Dir.glob('*.rb') do |file|
       @format_list << file
-      require_relative "plugins/#{file}"
+      require_relative "../plugins/#{file}"
     end
     format_conversion
     Dir.chdir('..')
