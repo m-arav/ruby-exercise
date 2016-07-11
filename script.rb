@@ -1,4 +1,4 @@
-# Contains information about the Data Model to be used 
+# Contains information about the Data Model to be used
 class UserModel
   attr_accessor :user_name, :user_city, :user_age
 
@@ -31,7 +31,6 @@ end
 
 # The plugin processing logic and controlling logic
 class Controller
-
   def call_read
     result = []
     UserView.read_in_data { result << gets.chomp }
@@ -66,12 +65,12 @@ class PluginLoader
       @format_list << file
       require_relative "plugins/#{file}"
     end
-    formatconversion
+    format_conversion
     Dir.chdir('..')
     @class_list
   end
 
-  def formatconversion
+  def format_conversion
     @format_list.each do |name|
       sample = name[0].upcase + name[1..-4]
       sample[sample.index('_') + 1] = sample[sample.index('_') + 1].upcase
