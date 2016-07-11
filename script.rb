@@ -1,4 +1,4 @@
-# Contains information about the Data Model to be used
+# Contains information about the Data Model to be used 
 class UserModel
   attr_accessor :user_name, :user_city, :user_age
 
@@ -31,9 +31,6 @@ end
 
 # The plugin processing logic and controlling logic
 class Controller
-  def stub_load_plugin
-    puts 'needed later'
-  end
 
   def call_read
     result = []
@@ -79,8 +76,8 @@ class PluginLoader
       sample = name[0].upcase + name[1..-4]
       sample[sample.index('_') + 1] = sample[sample.index('_') + 1].upcase
       @class_list << sample.sub('_', '')
-      UserView.display_format(@class_list)
     end
+    UserView.display_format(@class_list)
   end
 end
 
