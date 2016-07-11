@@ -1,3 +1,4 @@
+<a href="https://codeclimate.com/github/m-arav/ruby-exercise"><img src="https://codeclimate.com/github/m-arav/ruby-exercise/badges/gpa.svg" /></a>
 # Ruby-exercise
 
 An exercise to learn ruby concepts
